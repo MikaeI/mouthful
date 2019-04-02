@@ -16,9 +16,12 @@ Add the following script to your package.json:
 
 ```
 "scripts": {
-  "scaffold-css": "mouthful https://www.example.com path/to/file.css"
+  "mouthful": "mouthful https://www.example.com path/to/file.css"
 }
 ```
+
+Now you can add `mouthful` to other scripts or use it from the command line: `npm run mouthful`.
+
 
 ## License
 
