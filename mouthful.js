@@ -17,7 +17,7 @@ let mouthful = async (url, path) => {
         if (urls[index + 1]) {
           download(index + 1);
         } else {
-          fs.writeFile('../../' + path, stylesheet, function(err) {
+          fs.writeFile(path, stylesheet, function(err) {
             if (err) {
               console.log('Error: ' + err);
               process.exit(1);
