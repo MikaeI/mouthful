@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const phantom = require('phantom');
 const https = require('https');
 const fs = require('fs');
