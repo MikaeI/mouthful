@@ -12,7 +12,7 @@
 
 ## Usage
 
-`node mouthful https://www.starwars.com path/to/file.css`
+`node mouthful https://www.starwars.com relative/path/to/file.css`
 
 ## License
 
