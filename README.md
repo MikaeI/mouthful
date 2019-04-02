@@ -8,11 +8,17 @@
 
 ## Install
 
-`npm install mouthful`
+`npm install --save-dev mouthful`
 
 ## Usage
 
-`mouthful https://www.starwars.com relative/path/to/file.css`
+Add the following script to your package.json:
+
+```
+"scripts": {
+  "scaffold-css": "mouthful https://www.example.com path/to/file.css"
+}
+```
 
 ## License
 
