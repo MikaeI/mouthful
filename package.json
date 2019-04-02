@@ -1,7 +1,7 @@
 {
   "name": "mouthful",
   "version": "1.0.0",
-  "description": "Generate a concatenated file of all CSS used on a given website.",
+  "description": "Generate a concatenated file of all CSS used on a given website",
   "main": "mouthful.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,9 @@
   "keywords": [
     "css"
   ],
+  "dependencies": {
+    "phantom": "6.2.0"
+  },
   "author": "Mikael Åsbjørnsson-Stensland",
   "license": "MIT",
   "bugs": {

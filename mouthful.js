@@ -1,6 +1,7 @@
 const phantom = require('phantom');
 const https = require('https');
 const fs = require('fs');
+const args = process.argv.slice(2);
 let mouthful = async (url, path) => {
   const instance = await phantom.create();
   const page = await instance.createPage();
@@ -18,14 +19,17 @@ let mouthful = async (url, path) => {
           fs.writeFile(path, stylesheet, function(err) {
           // fs.writeFile('../../' + path, stylesheet, function(err) {
             if (err) {
-              return console.log(err);
+              console.log('Error: ' + err);
+              process.exit(1);
             }
             console.log('The file was saved!');
+            process.exit(0);
           });
         }
       });
     }).on('error', (err) => {
       console.log('Error: ' + err.message);
+      process.exit(1);
     });
   }
   let urls = [];
@@ -40,5 +44,9 @@ let mouthful = async (url, path) => {
   await instance.exit();
   download(0);
 }
-// Usage
-mouthful('https://www.altibox.no', 'public/altibox.css');
+if (process.argv.slice(2)[0] && process.argv.slice(2)[1]) {
+  mouthful(process.argv.slice(2)[0], process.argv.slice(2)[1]);
+} else {
+  console.log('Error: Argument error');
+  process.exit(1);
+}
