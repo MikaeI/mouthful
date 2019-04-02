@@ -1,4 +1,4 @@
-# mouthful
+# 🤭 mouthful
 
 > Generate a concatenated file of all CSS used on a given website.
 
