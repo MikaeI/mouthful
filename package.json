@@ -1,6 +1,6 @@
 {
   "name": "mouthful",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Generate a concatenated file of all CSS used on a given website",
   "main": "mouthful.js",
   "scripts": {

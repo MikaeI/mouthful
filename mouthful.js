@@ -4,7 +4,7 @@ const fs = require('fs');
 const mouthful = async (url) => {
   const instance = await phantom.create();
   const page = await instance.createPage();
-  const download = await (index) => {
+  const download = (index) => {
     https.get(urls[index], (resp) => {
       let data = '';
       resp.on('data', (chunk) => {
@@ -35,6 +35,6 @@ const mouthful = async (url) => {
   // TODO: Get inline tags, element style attributes?
   status = await page.open(url);
   await instance.exit();
-  download(0);
+  await download(0);
 }
 module.exports = mouthful;
