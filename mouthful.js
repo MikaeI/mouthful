@@ -22,6 +22,7 @@ const mouthful = async (url, callback) => {
   let urls = [];
   let stylesheet = '';
   let inline = '';
+  let inlineCount = 0;
   await page.on('onResourceRequested', (requestData) => {
     if (requestData.url.indexOf('.css') !== -1) {
       urls.push(requestData.url);
@@ -31,6 +32,7 @@ const mouthful = async (url, callback) => {
   content = await page.property('content');
   const $ = cheerio.load(content);
   $('style').each((i, el) => {
+    inlineCount ++;
     inline += $(el).html();
   });
   await instance.exit();
@@ -42,7 +44,7 @@ const mouthful = async (url, callback) => {
         stylesheet += sheet;
       });
       stylesheet += inline;
-      callback(stylesheet, urls);
+      callback(stylesheet, urls, inlineCount);
     }
   });
 }
