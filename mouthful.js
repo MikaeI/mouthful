@@ -24,7 +24,7 @@ const mouthful = async (url, callback) => {
   let inline = '';
   let inlineCount = 0;
   await page.on('onResourceRequested', (requestData) => {
-    if (requestData.url.indexOf('.css') !== -1) {
+    if (requestData.headers[0].value.indexOf('text/css') !== -1) {
       urls.push(requestData.url);
     }
   });
