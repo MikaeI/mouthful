@@ -4,7 +4,7 @@ const fs = require('fs');
 const mouthful = async (url) => {
   const instance = await phantom.create();
   const page = await instance.createPage();
-  const download = (index) => {
+  const download = await (index) => {
     https.get(urls[index], (resp) => {
       let data = '';
       resp.on('data', (chunk) => {
@@ -15,7 +15,9 @@ const mouthful = async (url) => {
         if (urls[index + 1]) {
           download(index + 1);
         } else {
-          return stylesheet;
+          return new Promise(resolve => {
+            resolve(stylesheet);
+          });
         }
       });
     }).on('error', (err) => {
