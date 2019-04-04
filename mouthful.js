@@ -42,7 +42,7 @@ const mouthful = async (url, callback) => {
         stylesheet += sheet;
       });
       stylesheet += inline;
-      callback(stylesheet);
+      callback(stylesheet, urls);
     }
   });
 }
