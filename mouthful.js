@@ -17,14 +17,18 @@ let mouthful = async (url, path) => {
         if (urls[index + 1]) {
           download(index + 1);
         } else {
-          fs.writeFile(path, stylesheet, function(err) {
-            if (err) {
-              console.log('Error: ' + err);
-              process.exit(1);
-            }
-            console.log('The file was saved!');
-            process.exit(0);
-          });
+          if (path) {
+            fs.writeFile(path, stylesheet, function(err) {
+              if (err) {
+                console.log('Error: ' + err);
+                process.exit(1);
+              }
+              console.log('The file was saved!');
+              process.exit(0);
+            });
+          } else {
+            return stylesheet;
+          }
         }
       });
     }).on('error', (err) => {
@@ -40,12 +44,15 @@ let mouthful = async (url, path) => {
       urls.push(requestData.url);
     }
   });
+  // TODO: Get inline tags, element style attributes?
   status = await page.open(url);
   await instance.exit();
   download(0);
 }
-if (process.argv.slice(2)[0] && process.argv.slice(2)[1]) {
-  mouthful(process.argv.slice(2)[0], process.argv.slice(2)[1]);
+if (args[0] && args[1]) {
+  mouthful(args[0], args[1]);
+} else if (args[0]) {
+  mouthful(args[0]);
 } else {
   console.log('Error: Argument error');
   process.exit(1);
