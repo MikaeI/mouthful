@@ -19,7 +19,8 @@ let mouthful = async (url, path) => {
           download(index + 1);
         } else {
           stylesheet += inline;
-          fs.writeFile(path, stylesheet, function(err) {
+          let _stylesheet = stylesheet.replace(/\n/g, '');
+          fs.writeFile(path, _stylesheet, function(err) {
             if (err) {
               console.log('Error: ' + err);
               process.exit(1);
