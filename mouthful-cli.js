@@ -36,7 +36,7 @@ let mouthful = async (url, path) => {
   let stylesheet = '';
   let status = null;
   await page.on('onResourceRequested', (requestData) => {
-    if (requestData.url.indexOf('css') !== -1) {
+    if (requestData.url.indexOf('.css') !== -1) {
       urls.push(requestData.url);
     }
   });

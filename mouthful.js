@@ -1,40 +1,42 @@
 const phantom = require('phantom');
 const https = require('https');
 const fs = require('fs');
-const mouthful = async (url) => {
+const async = require('async');
+const request = require('request');
+const httpGet = (url, callback) => {
+  const options = {
+    url :  url,
+    json : true
+  };
+  request(options,
+    function(err, res, body) {
+      callback(err, body);
+    }
+  );
+}
+const mouthful = async (url, callback) => {
   const instance = await phantom.create();
   const page = await instance.createPage();
-  const download = (index) => {
-    https.get(urls[index], (resp) => {
-      let data = '';
-      resp.on('data', (chunk) => {
-        data += chunk;
-      });
-      resp.on('end', () => {
-        stylesheet += data;
-        if (urls[index + 1]) {
-          download(index + 1);
-        } else {
-          return new Promise(resolve => {
-            resolve(stylesheet);
-          });
-        }
-      });
-    }).on('error', (err) => {
-      console.log('Error: ' + err.message);
-    });
-  }
+  let status = null;
   let urls = [];
   let stylesheet = '';
-  let status = null;
   await page.on('onResourceRequested', (requestData) => {
-    if (requestData.url.indexOf('css') !== -1) {
+    if (requestData.url.indexOf('.css') !== -1) {
       urls.push(requestData.url);
     }
   });
-  // TODO: Get inline tags, element style attributes?
   status = await page.open(url);
   await instance.exit();
-  await download(0);
+  // TODO: Get inline tags, element style attributes?
+  async.mapSeries(urls, httpGet, (err, res) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      res.forEach((sheet) => {
+        stylesheet += sheet;
+      });
+      callback(stylesheet);
+    }
+  });
 }
 module.exports = mouthful;
