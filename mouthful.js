@@ -44,8 +44,7 @@ const mouthful = async (url, callback) => {
         stylesheet += sheet;
       });
       stylesheet += inline;
-      let _stylesheet = stylesheet.replace(/↵/g, '');
-      callback(_stylesheet, urls, inlineCount);
+      callback(stylesheet, urls, inlineCount);
     }
   });
 }
