@@ -1,6 +1,6 @@
 {
   "name": "mouthful",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Generate a concatenated file of all CSS used on a given website",
   "main": "mouthful.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "url": "https://github.com/MikaeI/mouthful/issues"
   },
   "bin": {
-    "mouthful": "./mouthful.js"
+    "mouthful": "./mouthful-cli.js"
   },
   "homepage": "https://github.com/MikaeI/mouthful#readme"
 }

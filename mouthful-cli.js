@@ -1,7 +1,9 @@
+#!/usr/bin/env node
 const phantom = require('phantom');
 const https = require('https');
 const fs = require('fs');
-export default mouthful = async (url) => {
+const args = process.argv.slice(2);
+let mouthful = async (url, path) => {
   const instance = await phantom.create();
   const page = await instance.createPage();
   const download = (index) => {
@@ -15,11 +17,19 @@ export default mouthful = async (url) => {
         if (urls[index + 1]) {
           download(index + 1);
         } else {
-          return stylesheet;
+          fs.writeFile(path, stylesheet, function(err) {
+            if (err) {
+              console.log('Error: ' + err);
+              process.exit(1);
+            }
+            console.log('The file was saved!');
+            process.exit(0);
+          });
         }
       });
     }).on('error', (err) => {
       console.log('Error: ' + err.message);
+      process.exit(1);
     });
   }
   let urls = [];
@@ -34,4 +44,10 @@ export default mouthful = async (url) => {
   status = await page.open(url);
   await instance.exit();
   download(0);
+}
+if (args[0] && args[1]) {
+  mouthful(args[0], args[1]);
+} else {
+  console.log('Error: Argument error');
+  process.exit(1);
 }
