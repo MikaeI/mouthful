@@ -1,7 +1,7 @@
 const phantom = require('phantom');
 const https = require('https');
 const fs = require('fs');
-export default mouthful = async (url) => {
+const mouthful = async (url) => {
   const instance = await phantom.create();
   const page = await instance.createPage();
   const download = (index) => {
@@ -35,3 +35,4 @@ export default mouthful = async (url) => {
   await instance.exit();
   download(0);
 }
+module.exports = mouthful;
