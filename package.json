@@ -1,6 +1,6 @@
 {
   "name": "mouthful",
-  "version": "2.0.0",
+  "version": "2.5.0",
   "description": "Generate a concatenated file of all CSS used on a given website",
   "main": "mouthful.js",
   "scripts": {
@@ -16,7 +16,8 @@
   "dependencies": {
     "phantom": "6.2.0",
     "async": "2.6.2",
-    "request": "2.88.0"
+    "request": "2.88.0",
+    "cheerio": "1.0.0-rc.2"
   },
   "author": "Mikael Åsbjørnsson-Stensland",
   "license": "MIT",

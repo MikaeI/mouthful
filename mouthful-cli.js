@@ -2,6 +2,7 @@
 const phantom = require('phantom');
 const https = require('https');
 const fs = require('fs');
+const cheerio = require('cheerio');
 const args = process.argv.slice(2);
 let mouthful = async (url, path) => {
   const instance = await phantom.create();
@@ -17,6 +18,7 @@ let mouthful = async (url, path) => {
         if (urls[index + 1]) {
           download(index + 1);
         } else {
+          stylesheet += inline;
           fs.writeFile(path, stylesheet, function(err) {
             if (err) {
               console.log('Error: ' + err);
@@ -34,14 +36,20 @@ let mouthful = async (url, path) => {
   }
   let urls = [];
   let stylesheet = '';
+  let inline = '';
   let status = null;
+  let content = null;
   await page.on('onResourceRequested', (requestData) => {
     if (requestData.url.indexOf('.css') !== -1) {
       urls.push(requestData.url);
     }
   });
-  // TODO: Get inline tags, element style attributes?
   status = await page.open(url);
+  content = await page.property('content');
+  const $ = cheerio.load(content);
+  $('style').each((i, el) => {
+    inline += $(el).html();
+  });
   await instance.exit();
   download(0);
 }
